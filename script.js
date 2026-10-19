@@ -4,9 +4,9 @@ const io = new IntersectionObserver((es) => es.forEach(e => {
 }), { threshold: .12 });
 document.querySelectorAll('.card,.stats div,.steps li,.shot,.plan,.value div').forEach(el => { el.classList.add('reveal'); io.observe(el); });
 
-// Formulário -> Planilha Google (via Google Apps Script)
-// Cole aqui a URL do app da web gerada no Apps Script (veja o README).
-const SHEET_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
+// Formulário -> e-mail (via FormSubmit.co, sem cadastro e sem servidor)
+// Troque pelo e-mail que vai RECEBER os cadastros dos pilotos.
+const DESTINO_EMAIL = 'biancakalsing@gmail.com';
 
 document.getElementById('pilotForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -17,19 +17,23 @@ document.getElementById('pilotForm').addEventListener('submit', async (e) => {
 
   if (!ok) return show('Informe um e-mail válido.', true);
   if (form.website.value) return; // campo-isca: bots preenchem, pessoas não
-  if (!SHEET_URL.startsWith('https://')) return show('Formulário ainda não conectado à planilha.', true);
-
-  const data = new URLSearchParams({
-    empresa: document.getElementById('company').value.trim(),
-    email,
-    plano: document.getElementById('plan').value,
-    data: new Date().toLocaleString('pt-BR')
-  });
+  if (!DESTINO_EMAIL.includes('@')) return show('Formulário ainda não conectado a um e-mail de destino.', true);
 
   btn.disabled = true; show('Enviando...', false);
   try {
-    // no-cors: o Apps Script não envia cabeçalhos CORS; a resposta fica opaca, mas o envio acontece
-    await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: data });
+    const res = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(DESTINO_EMAIL), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        Empresa: document.getElementById('company').value.trim(),
+        Email: email,
+        Plano: document.getElementById('plan').value,
+        _subject: 'Novo piloto Priorion',
+        _template: 'table',
+        _captcha: 'false'
+      })
+    });
+    if (!res.ok) throw new Error('falha no envio');
     show('Recebido! Entraremos em contato em breve.', false);
     form.reset();
     document.getElementById('plan').value = document.getElementById('rec').textContent;
