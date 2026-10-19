@@ -4,44 +4,18 @@ const io = new IntersectionObserver((es) => es.forEach(e => {
 }), { threshold: .12 });
 document.querySelectorAll('.card,.stats div,.steps li,.shot,.plan,.value div').forEach(el => { el.classList.add('reveal'); io.observe(el); });
 
-// Formulário -> e-mail (via FormSubmit.co, sem cadastro e sem servidor)
-// Troque pelo e-mail que vai RECEBER os cadastros dos pilotos.
-const DESTINO_EMAIL = 'biancakalsing@gmail.com';
+// Formulário -> e-mail (FormSubmit, envio direto pelo formulário, sem fetch)
+const pilotForm = document.getElementById('pilotForm'), msg = document.getElementById('msg');
+const show = (text, err) => { msg.className = 'msg mono' + (err ? ' err' : ''); msg.textContent = text; };
 
-document.getElementById('pilotForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target, msg = document.getElementById('msg'), btn = form.querySelector('button[type=submit]');
+// Depois do envio, o FormSubmit devolve a pessoa para esta mesma página
+pilotForm.elements['_next'].value = location.href.split(/[?#]/)[0] + '?enviado=1#piloto';
+if (new URLSearchParams(location.search).get('enviado')) show('Recebido! Entraremos em contato em breve.', false);
+
+pilotForm.addEventListener('submit', (e) => {
   const email = document.getElementById('email').value.trim();
-  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const show = (text, err) => { msg.className = 'msg mono' + (err ? ' err' : ''); msg.textContent = text; };
-
-  if (!ok) return show('Informe um e-mail válido.', true);
-  if (form.website.value) return; // campo-isca: bots preenchem, pessoas não
-  if (!DESTINO_EMAIL.includes('@')) return show('Formulário ainda não conectado a um e-mail de destino.', true);
-
-  btn.disabled = true; show('Enviando...', false);
-  try {
-    const res = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(DESTINO_EMAIL), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        Empresa: document.getElementById('company').value.trim(),
-        Email: email,
-        Plano: document.getElementById('plan').value,
-        _subject: 'Novo piloto Priorion',
-        _template: 'table',
-        _captcha: 'false'
-      })
-    });
-    if (!res.ok) throw new Error('falha no envio');
-    show('Recebido! Entraremos em contato em breve.', false);
-    form.reset();
-    document.getElementById('plan').value = document.getElementById('rec').textContent;
-  } catch (err) {
-    show('Não foi possível enviar. Tente novamente em instantes.', true);
-  } finally {
-    btn.disabled = false;
-  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { e.preventDefault(); return show('Informe um e-mail válido.', true); }
+  show('Enviando...', false);
 });
 
 // Botões dos planos pré-selecionam o plano no formulário
