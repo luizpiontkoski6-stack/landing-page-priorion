@@ -1,24 +1,43 @@
-// Abas do produto
-const tabs = [...document.querySelectorAll('.tab')], panes = [...document.querySelectorAll('.pane')];
-tabs.forEach((t, i) => t.addEventListener('click', () => {
-  tabs.forEach((x, k) => { x.classList.toggle('on', k === i); x.setAttribute('aria-selected', k === i); });
-  panes.forEach((p, k) => p.classList.toggle('on', k === i));
-}));
-
 // Aparecer ao rolar
 const io = new IntersectionObserver((es) => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
 }), { threshold: .12 });
-document.querySelectorAll('.card,.stats div,.steps li,.window,.plan,.value div').forEach(el => { el.classList.add('reveal'); io.observe(el); });
+document.querySelectorAll('.card,.stats div,.steps li,.shot,.plan,.value div').forEach(el => { el.classList.add('reveal'); io.observe(el); });
 
-// Formulário (somente front-end: ligue ao seu backend/CRM)
-document.getElementById('pilotForm').addEventListener('submit', (e) => {
+// Formulário -> Planilha Google (via Google Apps Script)
+// Cole aqui a URL do app da web gerada no Apps Script (veja o README).
+const SHEET_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
+
+document.getElementById('pilotForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const v = document.getElementById('email').value.trim(), msg = document.getElementById('msg');
-  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  msg.className = 'msg mono' + (ok ? '' : ' err');
-  msg.textContent = ok ? 'Recebido! Entraremos em contato em breve.' : 'Informe um e-mail válido.';
-  if (ok) e.target.reset();
+  const form = e.target, msg = document.getElementById('msg'), btn = form.querySelector('button[type=submit]');
+  const email = document.getElementById('email').value.trim();
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const show = (text, err) => { msg.className = 'msg mono' + (err ? ' err' : ''); msg.textContent = text; };
+
+  if (!ok) return show('Informe um e-mail válido.', true);
+  if (form.website.value) return; // campo-isca: bots preenchem, pessoas não
+  if (!SHEET_URL.startsWith('https://')) return show('Formulário ainda não conectado à planilha.', true);
+
+  const data = new URLSearchParams({
+    empresa: document.getElementById('company').value.trim(),
+    email,
+    plano: document.getElementById('plan').value,
+    data: new Date().toLocaleString('pt-BR')
+  });
+
+  btn.disabled = true; show('Enviando...', false);
+  try {
+    // no-cors: o Apps Script não envia cabeçalhos CORS; a resposta fica opaca, mas o envio acontece
+    await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: data });
+    show('Recebido! Entraremos em contato em breve.', false);
+    form.reset();
+    document.getElementById('plan').value = document.getElementById('rec').textContent;
+  } catch (err) {
+    show('Não foi possível enviar. Tente novamente em instantes.', true);
+  } finally {
+    btn.disabled = false;
+  }
 });
 
 // Botões dos planos pré-selecionam o plano no formulário
@@ -37,3 +56,12 @@ function setPlan() {
 }
 vol.addEventListener('input', setPlan);
 setPlan();
+
+// Ampliar print ao clicar
+const lb = document.createElement('div'); lb.className = 'lightbox';
+lb.innerHTML = '<img alt="">'; document.body.appendChild(lb);
+document.querySelectorAll('.shot img').forEach(im => im.addEventListener('click', () => {
+  lb.firstChild.src = im.src; lb.firstChild.alt = im.alt; lb.classList.add('on');
+}));
+lb.addEventListener('click', () => lb.classList.remove('on'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('on'); });

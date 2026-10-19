@@ -5,15 +5,17 @@ body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-seri
 .mono{font-family:var(--mono)}
 a{color:inherit;text-decoration:none}
 
-.nav{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700}
-.nav nav{display:flex;align-items:center;gap:24px;font-size:14px;color:var(--mut)}
+.nav{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px 120px;background:rgba(10,10,11,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+@media(min-width:901px) and (max-width:1200px){.nav{padding:22px 56px}}
+.brand{display:flex;align-items:center;gap:16px;font-weight:800;font-size:34px;letter-spacing:-.02em}
+.brand svg{width:48px;height:40px;flex:none}
+.nav nav{display:flex;align-items:center;gap:36px;font-size:18px;font-weight:500;color:var(--mut)}
 .nav nav a:hover{color:var(--txt)}
 .btn{display:inline-block;background:var(--blue);color:#fff;font-weight:600;font-size:15px;padding:13px 24px;border-radius:8px;border:1px solid var(--blue);cursor:pointer;transition:.2s;font-family:inherit}
 .btn:hover{background:#5a8aff;transform:translateY(-1px)}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--txt)}
 .btn.ghost:hover{border-color:var(--blue);background:rgba(64,117,255,.08)}
-.btn-sm{padding:8px 14px;font-size:13px;color:#fff!important}
+.btn-sm{padding:13px 24px;font-size:16px;color:#fff!important}
 
 .hero{text-align:center;padding:130px 24px 110px;background:radial-gradient(60% 60% at 50% 0%,rgba(64,117,255,.22),transparent 70%)}
 h1{font-size:clamp(46px,9vw,104px);line-height:1;letter-spacing:-.04em;font-weight:800}
@@ -98,6 +100,10 @@ footer a:hover{color:var(--txt)}
 .reveal{opacity:0;transform:translateY(22px);transition:.7s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
 
 @media(max-width:900px){
+  .nav{padding:16px 20px}
+  .brand{font-size:26px;gap:12px}
+  .brand svg{width:36px;height:30px}
+  .btn-sm{padding:11px 18px;font-size:15px}
   .nav nav a:not(.btn){display:none}
   .grid3,.stats,.steps,.plans,.two,.metrics{grid-template-columns:1fr}
   .plan.feat{transform:none}
@@ -191,3 +197,19 @@ td{padding:20px 16px;line-height:1.6}
 .final{padding-bottom:150px}
 form{gap:14px;margin-top:40px}
 footer{padding:36px 32px}
+
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+/* Vitrine do MVP */
+.sec.wide{max-width:1360px}
+.shots{display:flex;flex-direction:column;gap:96px;margin-top:56px}
+.shot figcaption{max-width:720px;margin-bottom:22px}
+.shot figcaption span{color:var(--blue);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.shot figcaption h3{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;line-height:1.2;margin:8px 0 10px}
+.shot figcaption p{color:var(--mut);font-size:17px;line-height:1.7}
+.shot img{display:block;width:100%;height:auto;cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border-radius:10px}
+@media(max-width:900px){.shots{gap:64px}}

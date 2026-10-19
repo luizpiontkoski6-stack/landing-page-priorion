@@ -21,7 +21,6 @@
     <a href="#como">Como funciona</a>
     <a href="#produto">Produto</a>
     <a href="#planos">Planos</a>
-    <a href="#piloto" class="btn btn-sm">Quero ser piloto</a>
   </nav>
 </header>
 
@@ -29,10 +28,6 @@
 <section class="hero">
   <h1>Do excesso<br><span class="grad">à prioridade</span></h1>
   <p class="lead">O Priorion transforma chamados vagos em demandas estruturadas, pontuadas e prontas para entrar na fila de desenvolvimento.</p>
-  <div class="cta">
-    <a href="#piloto" class="btn">Quero ser piloto</a>
-    <a href="#planos" class="btn ghost">Ver planos e preços</a>
-  </div>
   <p class="hero-note mono">Para software houses de 5 a 30 pessoas · Assinatura por empresa, sem cobrança por assento</p>
 </section>
 
@@ -75,56 +70,36 @@
   </div>
 </section>
 
-<section class="sec" id="produto">
+<section class="sec wide" id="produto">
   <p class="eyebrow mono">O produto</p>
-  <h2>Veja o Priorion por dentro.</h2>
-  <div class="tabs" role="tablist">
-    <button class="tab on" role="tab" data-i="0">Entrevista da IA</button>
-    <button class="tab" role="tab" data-i="1">Pontuação</button>
-    <button class="tab" role="tab" data-i="2">Fila priorizada</button>
-  </div>
-  <div class="window">
-    <div class="window-bar mono"><i></i><i></i><i></i><span>priorion-tau.vercel.app</span></div>
-
-    <div class="pane on">
-      <div class="two">
-        <div class="form">
-          <label class="mono">SETOR IMPACTADO</label><div class="field">bug visual no site</div>
-          <label class="mono">COMO O CLIENTE ESCREVEU</label><div class="field tall">não dá para scrollar a página</div>
-        </div>
-        <div class="chat">
-          <div class="chat-head mono"><span>HISTÓRICO DA TRIAGEM EM TEMPO REAL</span><b>68%</b></div>
-          <div class="progress"><i style="width:68%"></i></div>
-          <p class="bub ai">Quantos usuários você estima afetados?</p>
-          <p class="bub me">Entre 100 e 1.000, a maioria.</p>
-          <p class="bub ai">O problema impede de concluir uma compra?</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pane">
-      <div class="metrics">
-        <div class="metric"><small class="mono">REACH (ALCANCE)</small><b>1.000</b><span>usuários ou terminais afetados</span></div>
-        <div class="metric"><small class="mono">IMPACT (GRAVIDADE)</small><b>3×</b><span>Crítico / parada total</span></div>
-        <div class="metric"><small class="mono">CONFIDENCE (CERTEZA)</small><b>100%</b><span>Comprovado por logs</span></div>
-      </div>
-      <div class="result"><span class="mono">1.000 × 3× × 100%</span><strong>3.000,0</strong></div>
-      <div class="report"><small class="mono">RELATÓRIO ESTRUTURADO</small><p>Bug visual no site que impede o scroll da página. A consequência direta é o bloqueio de conversão: os usuários não conseguem prosseguir com a ação desejada.</p></div>
-    </div>
-
-    <div class="pane">
-      <div class="table-scroll">
-      <table>
-        <thead><tr><th>Demanda</th><th class="r">Reach</th><th class="r">Impact</th><th class="r">Conf.</th><th class="r">Pontuação</th><th>Prioridade</th></tr></thead>
-        <tbody>
-          <tr class="crit"><td><b>Correção de bug de scroll que bloqueia conversão</b></td><td class="r mono">1.000</td><td class="r mono">3×</td><td class="r mono">100%</td><td class="r mono red">3.000,0</td><td><span class="pill red">CRÍTICO</span></td></tr>
-          <tr><td><b>Correção do botão de cadastro de usuário bloqueado</b></td><td class="r mono">60</td><td class="r mono">3×</td><td class="r mono">80%</td><td class="r mono green">144,0</td><td><span class="pill green">BAIXO</span></td></tr>
-          <tr><td><b>Correção de bug visual na página home</b></td><td class="r mono">550</td><td class="r mono">0,25×</td><td class="r mono">80%</td><td class="r mono green">110,0</td><td><span class="pill green">BAIXO</span></td></tr>
-          <tr><td><b>Falha de login com bloqueio de dados sensíveis</b></td><td class="r mono">12</td><td class="r mono">3×</td><td class="r mono">80%</td><td class="r mono green">28,8</td><td><span class="pill green">BAIXO</span></td></tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
+  <h2>Veja o Priorion funcionando.</h2>
+  <p class="sub">Telas reais do MVP, do chamado vago à fila priorizada.</p>
+  <div class="shots">
+    <figure class="shot">
+      <figcaption><span class="mono">01 · Nova demanda</span><h3>A IA entrevista e estrutura o chamado</h3><p>O suporte cola o e-mail ou a mensagem do cliente, informa o setor e inicia o refinamento. A IA faz as perguntas que faltam para calcular Reach, Impact e Confidence.</p></figcaption>
+      <div class="window"><div class="window-bar mono"><i></i><i></i><i></i><span>priorion-tau.vercel.app</span></div>
+        <img src="images/tela-1.webp" alt="Tela Nova demanda com entrevista da IA" width="1600"></div>
+    </figure>
+    <figure class="shot">
+      <figcaption><span class="mono">02 · Minhas solicitações</span><h3>Todas as demandas, ordenadas por valor e certeza</h3><p>Cada pessoa acompanha suas solicitações com pontuação, prioridade e status, com filtros por cliente, responsável e prioridade.</p></figcaption>
+      <div class="window"><div class="window-bar mono"><i></i><i></i><i></i><span>priorion-tau.vercel.app</span></div>
+        <img src="images/tela-2.webp" alt="Tela Minhas solicitações com demandas pontuadas" width="1600" loading="lazy"></div>
+    </figure>
+    <figure class="shot">
+      <figcaption><span class="mono">03 · Fila ativa</span><h3>A fila que o desenvolvimento enxerga</h3><p>A mesma pontuação para todos os clientes. O que vale mais aparece primeiro, e o time inteiro entende por quê.</p></figcaption>
+      <div class="window"><div class="window-bar mono"><i></i><i></i><i></i><span>priorion-tau.vercel.app</span></div>
+        <img src="images/tela-3.webp" alt="Tela Fila ativa de demandas" width="1600" loading="lazy"></div>
+    </figure>
+    <figure class="shot">
+      <figcaption><span class="mono">04 · Detalhe da demanda</span><h3>Pontuação, justificativa e histórico em um só lugar</h3><p>Reach, Impact e Confidence com a justificativa da IA, o relato original, o relatório estruturado e o histórico operacional.</p></figcaption>
+      <div class="window"><div class="window-bar mono"><i></i><i></i><i></i><span>priorion-tau.vercel.app</span></div>
+        <img src="images/tela-4.webp" alt="Tela de detalhe de uma demanda crítica" width="1600" loading="lazy"></div>
+    </figure>
+    <figure class="shot">
+      <figcaption><span class="mono">05 · Revisão e histórico</span><h3>Quem criou, aprovou e editou, com data e motivo</h3><p>Nenhuma demanda entra na fila sem a aprovação de uma pessoa do QA, e cada decisão fica registrada.</p></figcaption>
+      <div class="window"><div class="window-bar mono"><i></i><i></i><i></i><span>priorion-tau.vercel.app</span></div>
+        <img src="images/tela-5.webp" alt="Tela de detalhe com histórico operacional" width="1600" loading="lazy"></div>
+    </figure>
   </div>
 </section>
 
@@ -179,9 +154,10 @@
   <h2>Quero ser piloto</h2>
   <p class="sub">Informe sua empresa e o plano de interesse. Entramos em contato para começar.</p>
   <form id="pilotForm" novalidate>
-    <input type="text" id="company" placeholder="Nome da software house" aria-label="Software house">
-    <input type="email" id="email" placeholder="seu@email.com.br" aria-label="E-mail" required>
-    <select id="plan" aria-label="Plano de interesse"><option>Starter</option><option selected>Pro</option><option>Business</option><option>Ainda não sei</option></select>
+    <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="text" id="company" name="empresa" placeholder="Nome da software house" aria-label="Software house">
+    <input type="email" id="email" name="email" placeholder="seu@email.com.br" aria-label="E-mail" required>
+    <select id="plan" name="plano" aria-label="Plano de interesse"><option>Starter</option><option selected>Pro</option><option>Business</option><option>Ainda não sei</option></select>
     <button class="btn" type="submit">Quero ser piloto</button>
     <p class="msg mono" id="msg" role="status"></p>
   </form>
